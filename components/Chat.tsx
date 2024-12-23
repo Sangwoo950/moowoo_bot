@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, FormEvent, useRef } from 'react';
 import axios, { AxiosError } from 'axios';
-
+import Image from 'next/image';
 interface MessageType {
   id: number;
   text: string;
@@ -133,7 +133,7 @@ const Chat: React.FC = () => {
                         &times;
                       </button>
                     </div>
-                    <img
+                    <Image
                       src='/user-icon.png' // 사용자 아이콘 경로
                       alt='User'
                       className='w-8 h-8 ml-2 flex-shrink-0'
@@ -142,7 +142,7 @@ const Chat: React.FC = () => {
                 ) : (
                   // 봇 메시지: 아이콘이 먼저, 메시지 말풍선이 나중
                   <>
-                    <img
+                    <Image
                       src='/bot-icon.png' // 봇 아이콘 경로
                       alt='Bot'
                       className='w-8 h-8 mr-2 flex-shrink-0'

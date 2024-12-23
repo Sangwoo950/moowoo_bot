@@ -24,7 +24,7 @@ export default async function handler(
   try {
     const answer = await generateAnswer(question, documentText);
     res.status(200).json({ answer });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error('API 요청 오류:', e);
     res.status(500).json({ error: '답변을 생성할 수 없습니다.' });
   }
