@@ -15,13 +15,14 @@ export default async function handler(
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { question } = req.body;
+  const { question, documentText } = req.body;
+
   if (!question) {
     return res.status(400).json({ error: '질문을 입력해주세요.' });
   }
 
   try {
-    const answer = await generateAnswer(question);
+    const answer = await generateAnswer(question, documentText);
     res.status(200).json({ answer });
   } catch (e: any) {
     console.error('API 요청 오류:', e);

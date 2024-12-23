@@ -7,7 +7,7 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
 async function generateAnswer(
   question: string,
-  documentText: string
+  documentText: string = 'Hello, I have 2 dogs in my house.'
 ): Promise<string> {
   try {
     // Get the Gemini 1.5 model
@@ -18,7 +18,7 @@ async function generateAnswer(
       history: [
         {
           role: 'user',
-          parts: [{ text: 'Hello, I have 2 dogs in my house.' }],
+          parts: [{ text: documentText }],
         },
         {
           role: 'model',
