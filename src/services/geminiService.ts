@@ -36,11 +36,12 @@ export async function generateAnswer(
     const text = response.text();
     console.log(text);
     return text;
-  } catch (error: any) {
-    console.error(
-      'Gemini API 호출 오류:',
-      error.response?.data || error.message
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Gemini API 호출 오류:', error.message);
+    } else {
+      console.error('Gemini API 호출 오류: 예상치 못한 오류가 발생했습니다.');
+    }
     throw error;
   }
 }
