@@ -19,6 +19,14 @@ const Chat: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null); // 입력 필드 ref 추가
 
+  // 트리거 매핑
+  const triggers: { [key: string]: string } = {
+    안녕하세요: '안녕하세요! 무엇을 도와드릴까요?',
+    고마워: '천만에요! 도움이 되어 기쁩니다.',
+    민정이: '민정님은 귀엽습니다 :)',
+    // 추가 트리거 및 응답
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (input.trim() === '') return;
@@ -33,6 +41,25 @@ const Chat: React.FC = () => {
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true); // 로딩 시작
 
+    // 트리거 확인
+    const userInput = input.trim();
+    const botResponse = triggers[userInput];
+
+    if (botResponse) {
+      // 트리거에 해당하는 응답 추가
+      const botMessage: MessageType = {
+        id: Date.now() + 1,
+        text: botResponse,
+        isUser: false,
+        timestamp: new Date().toLocaleTimeString(),
+      };
+      setMessages((prev) => [...prev, botMessage]);
+      setIsLoading(false); // 로딩 종료
+      setInput('');
+      return;
+    }
+
+    // 트리거에 해당하지 않으면 API 호출
     try {
       // Axios POST 요청 시 응답 타입 지정
       const response = await axios.post<{ answer: string }>('/api/ask', {
@@ -136,23 +163,41 @@ const Chat: React.FC = () => {
                         &times;
                       </button>
                     </div>
+                    {/* 라이트 모드 아이콘 */}
                     <Image
                       src='/user-icon.png' // 사용자 아이콘 경로
                       alt='User'
                       width={32} // 실제 이미지 너비 (w-8 = 32px)
                       height={32} // 실제 이미지 높이 (h-8 = 32px)
-                      className='w-8 h-8 ml-2 sm:ml-3 flex-shrink-0'
+                      className='w-8 h-8 ml-2 sm:ml-3 flex-shrink-0 dark:hidden'
+                    />
+                    {/* 다크 모드 아이콘 */}
+                    <Image
+                      src='/user-icon-dark.png' // 다크 모드 사용자 아이콘 경로
+                      alt='User Dark'
+                      width={32}
+                      height={32}
+                      className='w-8 h-8 ml-2 sm:ml-3 flex-shrink-0 hidden dark:block'
                     />
                   </>
                 ) : (
                   // 봇 메시지: 아이콘이 먼저, 메시지 말풍선이 나중
                   <>
+                    {/* 라이트 모드 아이콘 */}
                     <Image
                       src='/bot-icon.png' // 봇 아이콘 경로
                       alt='Bot'
                       width={32} // 실제 이미지 너비 (w-8 = 32px)
                       height={32} // 실제 이미지 높이 (h-8 = 32px)
-                      className='w-8 h-8 mr-2 sm:mr-3 flex-shrink-0'
+                      className='w-8 h-8 mr-2 sm:mr-3 flex-shrink-0 dark:hidden'
+                    />
+                    {/* 다크 모드 아이콘 */}
+                    <Image
+                      src='/bot-icon-dark.png' // 다크 모드 봇 아이콘 경로
+                      alt='Bot Dark'
+                      width={32}
+                      height={32}
+                      className='w-8 h-8 mr-2 sm:mr-3 flex-shrink-0 hidden dark:block'
                     />
                     <div
                       className={`relative max-w-xs sm:max-w-md px-3 py-2 sm:px-4 sm:py-3 rounded-lg bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded-bl-none`}
