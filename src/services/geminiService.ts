@@ -1,11 +1,10 @@
 // src/services/geminiService.ts
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import https from 'https';
 
 // Access your API key as an environment variable
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 
-async function generateAnswer(
+export async function generateAnswer(
   question: string,
   documentText: string = 'Hello, I have 2 dogs in my house.'
 ): Promise<string> {
@@ -45,5 +44,3 @@ async function generateAnswer(
     throw error;
   }
 }
-
-export default generateAnswer;

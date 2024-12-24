@@ -136,6 +136,8 @@ const Chat: React.FC = () => {
                     <Image
                       src='/user-icon.png' // 사용자 아이콘 경로
                       alt='User'
+                      width={32} // 실제 이미지 너비 (w-8 = 32px)
+                      height={32} // 실제 이미지 높이 (h-8 = 32px)
                       className='w-8 h-8 ml-2 flex-shrink-0'
                     />
                   </>
@@ -145,6 +147,8 @@ const Chat: React.FC = () => {
                     <Image
                       src='/bot-icon.png' // 봇 아이콘 경로
                       alt='Bot'
+                      width={32} // 실제 이미지 너비 (w-8 = 32px)
+                      height={32} // 실제 이미지 높이 (h-8 = 32px)
                       className='w-8 h-8 mr-2 flex-shrink-0'
                     />
                     <div
