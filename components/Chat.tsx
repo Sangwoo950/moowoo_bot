@@ -3,6 +3,7 @@
 import React, { useState, useEffect, FormEvent, useRef } from 'react';
 import axios, { AxiosError } from 'axios';
 import Image from 'next/image';
+
 interface MessageType {
   id: number;
   text: string;
@@ -92,7 +93,7 @@ const Chat: React.FC = () => {
   return (
     <div className='fixed inset-0 flex items-center justify-center p-4 bg-transparent'>
       {/* 채팅 컨테이너 */}
-      <div className='flex flex-col h-[48rem] w-full max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden'>
+      <div className='flex flex-col h-[90vh] w-full max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden sm:h-[80vh] md:h-[70vh]'>
         {/* 헤더 */}
         <div className='text-center p-4 border-b border-gray-200 dark:border-gray-600'>
           <h1 className='text-2xl font-semibold text-gray-900 dark:text-white'>
